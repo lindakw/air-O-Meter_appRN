@@ -1,5 +1,5 @@
 import React, { useState, FC } from 'react';
-import { Text, View, StyleSheet, TextInput, Image, Button, Pressable } from 'react-native'
+import { Text, View, StyleSheet, TextInput, Image, Pressable } from 'react-native'
 
 import { Ionicons } from '@expo/vector-icons';
 
@@ -10,6 +10,10 @@ interface Props {
 }
 
 const Search: FC<Props> = (props) => {
+
+  const submitHandler = () => {
+
+  }
   return (
     <View style={styles.container}>
       <Pressable style={styles.locationIcon} >
@@ -35,7 +39,7 @@ const Search: FC<Props> = (props) => {
 
       </View>
 
-      <Pressable style={styles.button}><Text style={styles.buttonText}>Search</Text></Pressable>
+      <Pressable onPress={submitHandler} style={styles.button}><Text style={styles.buttonText}>Search</Text></Pressable>
     </View>
   )
 };
@@ -73,6 +77,8 @@ const styles = StyleSheet.create({
     height: 40,
     width: "80%",
     marginVertical: 20,
+    //margin: 12,
+    //borderWidth: 1,
     borderTopWidth: 1,
     borderBottomWidth: 1,
     borderLeftWidth: 1,
@@ -81,8 +87,8 @@ const styles = StyleSheet.create({
   searchIcon: {
     borderTopWidth: 1,
     borderBottomWidth: 1,
-    borderRightWidth: 1,
-    padding: 6,
+    borderLefWidth: 1,
+    padding: 7,
   },
   button: {
     alignItems: 'center',
@@ -91,7 +97,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 32,
     borderRadius: 4,
     elevation: 3,
-    backgroundColor: '#19C3FB',
+    backgroundColor: 'blue',
   },
   buttonText: {
     fontSize: 16,
