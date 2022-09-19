@@ -34,7 +34,7 @@ const Search: FC<Props> = (props) => {
         </Pressable>
 
       </View>
-
+      Style
       <Pressable style={styles.button}><Text style={styles.buttonText}>Search</Text></Pressable>
     </View>
   )

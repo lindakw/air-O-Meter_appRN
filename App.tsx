@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Provider } from 'react-redux';
 import { store } from './app/store';
 import Search from './screens/search_screen/search';
+import Aqi from './screens/aqi_screen/aqiPage';
 
 import { StyleSheet, View } from 'react-native';
 
@@ -15,6 +16,7 @@ export default function App() {
           setCity={setCity}
           city={city}
         />
+        <Aqi />
       </Provider>
     </View>
 
