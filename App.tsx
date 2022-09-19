@@ -6,7 +6,12 @@ import Search from './screens/search_screen/search';
 import Aqi from './screens/aqi_screen/aqiPage';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-const Stack = createNativeStackNavigator<ParamListBase>();
+export type StackParamList = {
+  Search: undefined;
+  Main: undefined;
+}
+
+const Stack = createNativeStackNavigator<StackParamList>();
 
 export default function App() {
 
@@ -18,16 +23,12 @@ export default function App() {
             name="Search"
             component={Search}
           />
-        </Stack.Navigator>
 
-        <Stack.Navigator>
           <Stack.Screen
-            name="AQI Main"
+            name="Main"
             component={Aqi}
           />
         </Stack.Navigator>
-
-        <Aqi />
       </NavigationContainer>
     </Provider>
 

@@ -2,9 +2,12 @@ import React, { useState, FC } from 'react';
 import { Text, View, StyleSheet, TextInput, Image, Button, Pressable } from 'react-native'
 
 import { Ionicons } from '@expo/vector-icons';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { StackParamList } from '../../App';
 
+type SearchScreenProps = NativeStackScreenProps<StackParamList, "Search">;
 
-const Search: FC = (props) => {
+const Search: FC<SearchScreenProps> = (props) => {
   const [city, setCity] = useState("");
   return (
     <View style={styles.container}>
@@ -30,8 +33,15 @@ const Search: FC = (props) => {
         </Pressable>
 
       </View>
-      Style
+
       <Pressable style={styles.button}><Text style={styles.buttonText}>Search</Text></Pressable>
+
+      <Button
+        title="Main Screen"
+        onPress={() => props.navigation.push("Main")}
+      />
+
+
     </View>
   )
 };
