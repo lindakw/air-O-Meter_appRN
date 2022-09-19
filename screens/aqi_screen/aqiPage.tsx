@@ -8,8 +8,7 @@ import { Ionicons } from "@expo/vector-icons";
 const Aqi: FC = () => {
   return (
     <View style={styles.container}>
-      <ImageBackground source={require("../../assets/air2")} />
-
+      <Text>hello</Text>
     </View>
   )
 }

@@ -4,12 +4,8 @@ import { Text, View, StyleSheet, TextInput, Image, Button, Pressable } from 'rea
 import { Ionicons } from '@expo/vector-icons';
 
 
-interface Props {
-  city: string;
-  setCity: React.Dispatch<React.SetStateAction<string>>;
-}
-
-const Search: FC<Props> = (props) => {
+const Search: FC = (props) => {
+  const [city, setCity] = useState("");
   return (
     <View style={styles.container}>
       <Pressable style={styles.locationIcon} >
@@ -25,8 +21,8 @@ const Search: FC<Props> = (props) => {
         <TextInput
           placeholder='Enter City Name'
           //onChangeText={text => setCity(text)}
-          onChangeText={props.setCity}
-          value={props.city}
+          onChangeText={setCity}
+          value={city}
           style={styles.input}
         />
         <Pressable style={styles.searchIcon}>

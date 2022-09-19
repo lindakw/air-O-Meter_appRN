@@ -1,32 +1,37 @@
 import React, { useState } from 'react';
 import { Provider } from 'react-redux';
 import { store } from './app/store';
+import { NavigationContainer, ParamListBase } from '@react-navigation/native';
 import Search from './screens/search_screen/search';
 import Aqi from './screens/aqi_screen/aqiPage';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import { StyleSheet, View } from 'react-native';
+const Stack = createNativeStackNavigator<ParamListBase>();
 
 export default function App() {
-  const [city, setCity] = useState("");
-  return (
 
-    <View style={styles.container}>
-      <Provider store={store}>
-        <Search
-          setCity={setCity}
-          city={city}
-        />
+  return (
+    <Provider store={store}>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="Search">
+          <Stack.Screen
+            name="Search"
+            component={Search}
+          />
+        </Stack.Navigator>
+
+        <Stack.Navigator>
+          <Stack.Screen
+            name="AQI Main"
+            component={Aqi}
+          />
+        </Stack.Navigator>
+
         <Aqi />
-      </Provider>
-    </View>
+      </NavigationContainer>
+    </Provider>
+
 
 
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-
-  },
-})
