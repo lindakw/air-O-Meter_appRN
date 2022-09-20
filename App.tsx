@@ -18,7 +18,12 @@ export default function App() {
   return (
     <Provider store={store}>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Search">
+        <Stack.Navigator
+          initialRouteName="Search"
+          screenOptions={{
+            headerShown: false
+          }}
+        >
           <Stack.Screen
             name="Search"
             component={Search}

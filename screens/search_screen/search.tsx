@@ -34,12 +34,10 @@ const Search: FC<SearchScreenProps> = (props) => {
 
       </View>
 
-      <Pressable style={styles.button}><Text style={styles.buttonText}>Search</Text></Pressable>
-
-      <Button
-        title="Main Screen"
+      <Pressable
+        style={styles.button}
         onPress={() => props.navigation.push("Main")}
-      />
+      ><Text style={styles.buttonText}>Search</Text></Pressable>
 
 
     </View>
