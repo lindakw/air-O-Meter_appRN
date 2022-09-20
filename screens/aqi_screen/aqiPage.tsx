@@ -75,11 +75,15 @@ const Aqi: FC<AQIScreenProps> = (props) => {
         <View style={styles.bottomWidgetContainer}>
           <View style={styles.widgetBox}>
             <Text>Pollen</Text>
-            <View style={styles.smallCircle}></View>
+            <View style={styles.smallCircle}>
+              <Text style={styles.widgetText}>61</Text>
+            </View>
           </View>
           <View style={styles.widgetBox}>
             <Text>UV Index</Text>
-            <View style={styles.smallCircle}></View>
+            <View style={styles.smallCircle}>
+              <Text style={styles.widgetText}>2</Text>
+            </View>
           </View>
         </View>
       </ImageBackground>
@@ -197,5 +201,10 @@ const styles = StyleSheet.create({
     height: 75,
     borderRadius: 75 / 2,
     backgroundColor: "yellow",
+    justifyContent: "center",
+    alignItems: "center",
   },
+  widgetText: {
+    fontSize: 22,
+  }
 })
