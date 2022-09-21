@@ -2,28 +2,27 @@ import React, { useState, FC } from 'react';
 import { Text, View, StyleSheet, TextInput, Image, Pressable, Alert } from 'react-native'
 
 import { Ionicons } from '@expo/vector-icons';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { StackParamList } from '../../App';
 
 import { useGetAQIQuery } from "../../api/airQualityAPI";
 
-interface Props {
-  city: string;
-  setCity: React.Dispatch<React.SetStateAction<string>>;
-}
+type SearchScreenProps = NativeStackScreenProps<StackParamList, "Search">;
 
-const Search: FC<Props> = (props) => {
-
-  const { data, error, isLoading, isError } = useGetAQIQuery(props.city); //props.city
+const Search: FC<SearchScreenProps> = (props) => {
+  const [city, setCity] = useState("");
+  const { data, error, isLoading, isError } = useGetAQIQuery(city); //props.city
 
   const submitHandler = () => {
-    if (props.city === "") {
+    if (city === "") {
       Alert.alert("Can't leave blank. Please enter a city.")
     } else {
-      return props.setCity(props.city);
+      return setCity(city);
     }
   }
 
   console.log(data);
-
+  
   return (
     <View style={styles.container}>
       <Pressable style={styles.locationIcon} >
@@ -38,8 +37,9 @@ const Search: FC<Props> = (props) => {
       <View style={styles.inputContainer}>
         <TextInput
           placeholder='Enter City Name'
-          onChangeText={props.setCity}
-          value={props.city}
+          onChangeText={setCity}
+          value={city}
+
           style={styles.input}
         />
         <Pressable style={styles.searchIcon}>
@@ -50,6 +50,7 @@ const Search: FC<Props> = (props) => {
 
       <Pressable onPress={submitHandler} style={styles.button}><Text style={styles.buttonText}>Search</Text></Pressable>
       {isLoading && <Text>"Loading..."</Text>}
+
     </View>
   )
 };
