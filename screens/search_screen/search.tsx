@@ -5,15 +5,16 @@ import {
   StyleSheet,
   TextInput,
   Image,
-  Button,
   Pressable,
   Alert,
-  Platform,
 } from "react-native";
 import * as Location from "expo-location";
 import { Ionicons } from "@expo/vector-icons";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { StackParamList } from "../../App";
+
+
+import { useGetAQIQuery } from "../../api/airQualityAPI";
 
 type SearchScreenProps = NativeStackScreenProps<StackParamList, "Search">;
 const Search: FC<SearchScreenProps> = (props) => {
@@ -31,6 +32,19 @@ const Search: FC<SearchScreenProps> = (props) => {
       setLocation(currentLocation);
     })();
   }, []);
+  
+    const { data, error, isLoading, isError } = useGetAQIQuery(city); //props.city
+
+  const submitHandler = () => {
+    if (city === "") {
+      Alert.alert("Can't leave blank. Please enter a city.")
+    } else {
+      return setCity(city);
+    }
+  }
+
+  console.log(data);
+
   return (
     <View style={styles.container}>
    
@@ -40,9 +54,8 @@ const Search: FC<SearchScreenProps> = (props) => {
       <View style={styles.inputContainer}>
         <TextInput
           placeholder="Enter City Name"
-          //onChangeText={text => setCity(text)}
           onChangeText={setCity}
-          value={city}
+          value={city} 
           style={styles.input}
         />
         <Pressable style={styles.searchIcon}>
@@ -50,12 +63,9 @@ const Search: FC<SearchScreenProps> = (props) => {
         </Pressable>
       </View>
 
-      <Pressable
-        style={styles.button}
-        onPress={() => props.navigation.push("Main")}
-      >
-        <Text style={styles.buttonText}>Search</Text>
-      </Pressable>
+      <Pressable onPress={submitHandler} style={styles.button}><Text style={styles.buttonText}>Search</Text></Pressable>
+      {isLoading && <Text>"Loading..."</Text>}
+
     </View>
   );
 };
@@ -92,6 +102,8 @@ const styles = StyleSheet.create({
     height: 40,
     width: "80%",
     marginVertical: 20,
+    //margin: 12,
+    //borderWidth: 1,
     borderTopWidth: 1,
     borderBottomWidth: 1,
     borderLeftWidth: 1,
@@ -100,8 +112,8 @@ const styles = StyleSheet.create({
   searchIcon: {
     borderTopWidth: 1,
     borderBottomWidth: 1,
-    borderRightWidth: 1,
-    padding: 6,
+    borderLefWidth: 1,
+    padding: 7,
   },
   button: {
     alignItems: "center",
@@ -111,6 +123,7 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     elevation: 3,
     backgroundColor: "#19C3FB",
+
   },
   buttonText: {
     fontSize: 16,
