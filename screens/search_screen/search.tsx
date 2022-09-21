@@ -1,64 +1,83 @@
-import React, { useState, FC } from 'react';
-import { Text, View, StyleSheet, TextInput, Image, Button, Pressable } from 'react-native'
+import React, { useState, useEffect, FC } from "react";
+import {
+  Text,
+  View,
+  StyleSheet,
+  TextInput,
+  Image,
+  Button,
+  Pressable,
+  Alert,
+  Platform,
+} from "react-native";
+import * as Location from "expo-location";
+import { Ionicons } from "@expo/vector-icons";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { StackParamList } from "../../App";
 
-import { Ionicons } from '@expo/vector-icons';
+type SearchScreenProps = NativeStackScreenProps<StackParamList, "Search">;
+const Search: FC<SearchScreenProps> = (props) => {
+  const [location, setLocation] = useState("");
+  const [city, setCity] = useState("");
 
+  useEffect(() => {
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        alert("Permission to access location was denied");
+      }
 
-interface Props {
-  city: string;
-  setCity: React.Dispatch<React.SetStateAction<string>>;
-}
-
-const Search: FC<Props> = (props) => {
+      let currentLocation: any = await Location.getCurrentPositionAsync({});
+      setLocation(currentLocation);
+    })();
+  }, []);
   return (
     <View style={styles.container}>
-      <Pressable style={styles.locationIcon} >
-        <Ionicons name="ios-location-outline" size={34} color="black" />
-      </Pressable>
+   
 
-      <Image
-        style={styles.logo}
-        source={require("../../assets/logo.png")}
-      />
+      <Image style={styles.logo} source={require("../../assets/logo.png")} />
       <Text style={styles.logoText}>AirOMeter</Text>
       <View style={styles.inputContainer}>
         <TextInput
-          placeholder='Enter City Name'
+          placeholder="Enter City Name"
           //onChangeText={text => setCity(text)}
-          onChangeText={props.setCity}
-          value={props.city}
+          onChangeText={setCity}
+          value={city}
           style={styles.input}
         />
         <Pressable style={styles.searchIcon}>
           <Ionicons name="ios-search" size={24} color="black" />
         </Pressable>
-
       </View>
 
-      <Pressable style={styles.button}><Text style={styles.buttonText}>Search</Text></Pressable>
+      <Pressable
+        style={styles.button}
+        onPress={() => props.navigation.push("Main")}
+      >
+        <Text style={styles.buttonText}>Search</Text>
+      </Pressable>
     </View>
-  )
+  );
 };
 
 export default Search;
-
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     //justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: "center",
   },
   inputContainer: {
     width: "100%",
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'row',
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "row",
   },
   locationIcon: {
-    alignSelf: 'flex-end',
+    alignSelf: "flex-end",
     marginRight: 20,
-    marginTop: 20,
+    marginTop: 40,
   },
   logo: {
     height: 150,
@@ -85,19 +104,19 @@ const styles = StyleSheet.create({
     padding: 6,
   },
   button: {
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     paddingVertical: 12,
     paddingHorizontal: 32,
     borderRadius: 4,
     elevation: 3,
-    backgroundColor: '#19C3FB',
+    backgroundColor: "#19C3FB",
   },
   buttonText: {
     fontSize: 16,
     lineHeight: 21,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     letterSpacing: 0.25,
-    color: 'white',
+    color: "white",
   },
-})
+});
