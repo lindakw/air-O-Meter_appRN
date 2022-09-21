@@ -11,8 +11,7 @@ import {
   Platform,
 } from "react-native";
 import * as Location from "expo-location";
-
-
+import { Ionicons } from "@expo/vector-icons";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { StackParamList } from "../../App";
 
