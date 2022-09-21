@@ -1,8 +1,9 @@
 import React, { useState, FC } from 'react';
-import { Text, View, StyleSheet, TextInput, Image, Pressable } from 'react-native'
+import { Text, View, StyleSheet, TextInput, Image, Pressable, Alert } from 'react-native'
 
 import { Ionicons } from '@expo/vector-icons';
 
+import { useGetAQIQuery } from "../../api/airQualityAPI";
 
 interface Props {
   city: string;
@@ -11,9 +12,18 @@ interface Props {
 
 const Search: FC<Props> = (props) => {
 
-  const submitHandler = () => {
+  const { data, error, isLoading, isError } = useGetAQIQuery(props.city); //props.city
 
+  const submitHandler = () => {
+    if (props.city === "") {
+      Alert.alert("Can't leave blank. Please enter a city.")
+    } else {
+      return props.setCity(props.city);
+    }
   }
+
+  console.log(data);
+
   return (
     <View style={styles.container}>
       <Pressable style={styles.locationIcon} >
@@ -28,7 +38,6 @@ const Search: FC<Props> = (props) => {
       <View style={styles.inputContainer}>
         <TextInput
           placeholder='Enter City Name'
-          //onChangeText={text => setCity(text)}
           onChangeText={props.setCity}
           value={props.city}
           style={styles.input}
@@ -40,6 +49,7 @@ const Search: FC<Props> = (props) => {
       </View>
 
       <Pressable onPress={submitHandler} style={styles.button}><Text style={styles.buttonText}>Search</Text></Pressable>
+      {isLoading && <Text>"Loading..."</Text>}
     </View>
   )
 };
