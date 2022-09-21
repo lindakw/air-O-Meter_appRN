@@ -11,7 +11,8 @@ import {
   Platform,
 } from "react-native";
 import * as Location from "expo-location";
-import { Ionicons } from "@expo/vector-icons";
+
+
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { StackParamList } from "../../App";
 
@@ -33,9 +34,7 @@ const Search: FC<SearchScreenProps> = (props) => {
   }, []);
   return (
     <View style={styles.container}>
-      {/* <Pressable style={styles.locationIcon}  >
-        <Ionicons name="ios-location-outline" size={34} color="black" />
-      </Pressable> */}
+   
 
       <Image style={styles.logo} source={require("../../assets/logo.png")} />
       <Text style={styles.logoText}>AirOMeter</Text>
