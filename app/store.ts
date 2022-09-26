@@ -6,7 +6,7 @@ import { airQualityAPI } from '../api/airQualityAPI';
 
 export const store = configureStore({
   reducer: {
-    [airQualityAPI.reducerPath]: airQualityAPI.reducer,
+     [airQualityAPI.reducerPath]: airQualityAPI.reducer,
   },
   middleware: (getDefaultMiddleware) => 
     getDefaultMiddleware().concat(airQualityAPI.middleware),

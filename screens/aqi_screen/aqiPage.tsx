@@ -12,15 +12,15 @@ const Aqi: FC<AQIScreenProps> = (props) => {
     <View style={styles.container}>
       <ImageBackground source={require("../../assets/air2.jpeg")} resizeMode="cover" style={{ width: "100%", height: "100%" }}>
 
-        {/* Top Nav Bar */}
+
         <View style={styles.topNav}>
           <Pressable
             style={styles.backIcon}
-            onPress={() => props.navigation.push("Search")}
+            onPress={() => props.navigation.goBack()}
           ><Ionicons name="chevron-back-outline" size={36} color="black" /></Pressable>
 
-          <Pressable>
-            <Ionicons name="ios-search" size={24} color="black" />
+          <Pressable onPress={() => props.navigation.navigate("Search")}>
+            <Ionicons name="ios-search" size={32} color="black" />
           </Pressable>
 
           <Pressable>
@@ -28,11 +28,11 @@ const Aqi: FC<AQIScreenProps> = (props) => {
           </Pressable>
         </View>
 
-        {/* App title and city name */}
+
         <Text style={styles.title}>AirOMeter</Text>
         <Text style={styles.cityName}>Fresno</Text>
 
-        {/* Main AQI circle and info */}
+
         <View style={styles.aqiCircle}>
           <View style={styles.aqiTextContainer}>
             <Text style={styles.aqiTextTitle}>AQI</Text>
@@ -40,10 +40,9 @@ const Aqi: FC<AQIScreenProps> = (props) => {
           </View>
         </View>
 
-        {/* Need to add dynamic text for aqi range */}
         <Text style={styles.aqiInfoText}>Good</Text>
 
-        {/* Information/suggestion box according to aqi range */}
+
         <View style={styles.aqiInfoBox}>
           <MaterialIcons name="perm-device-info" style={styles.phoneIcon} size={36} color="black" />
           <Text style={styles.aqiTextAdvice}>The air quality is good! It's a nice day to go for a run outside!</Text>
