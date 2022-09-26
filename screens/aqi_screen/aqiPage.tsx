@@ -23,7 +23,7 @@ const Aqi: FC<AQIScreenProps> = (props) => {
             <Ionicons name="ios-search" size={24} color="black" />
           </Pressable>
 
-          <Pressable>
+          <Pressable onPress={()=>props.navigation.push('IndexPage')}>
             <Ionicons name="information" size={36} color="black" />
           </Pressable>
         </View>
