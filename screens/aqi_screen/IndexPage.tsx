@@ -4,6 +4,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { AntDesign } from '@expo/vector-icons';
 import { StackParamList } from "../../App";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import {Colors} from './Colors'
 type IndexPageScreenProps = NativeStackScreenProps<StackParamList, "IndexPage">;
 
 const IndexPage: FC<IndexPageScreenProps> = (props) => {
@@ -29,30 +30,30 @@ const IndexPage: FC<IndexPageScreenProps> = (props) => {
        
       </View>
 
-      <View style={styles.wrapper}>
+      <View style={styles.cardWrapper}>
         <Text style={styles.title}>Air Quality Index</Text>
-        <View style={[styles.colorBackground,styles.cardShadow,{ backgroundColor: '#19740d'}]}  
+        <View style={[styles.cardBackground, { backgroundColor: Colors.green}]}  
         >
           <Text style={styles.indexText}>0-50</Text>
           <Text style={styles.indexText}>Good</Text>
         </View>
-        <View style={[styles.colorBackground, styles.cardShadow, { backgroundColor: '#ffd60a'}]}>
+        <View style={[styles.cardBackground, { backgroundColor: Colors.yellow}]}>
           <Text style={styles.indexText}>51-100</Text>
           <Text style={styles.indexText}>Moderate</Text>
         </View>
-        <View style={[styles.colorBackground,styles.cardShadow,{ backgroundColor: '#e7771b'}]}>
+        <View style={[styles.cardBackground,{ backgroundColor: Colors.orange}]}>
           <Text style={styles.indexText}>101-150</Text>
           <Text style={styles.indexTxt}>Unhealthy for Sensitive Groups</Text>
         </View>
-        <View style={[styles.colorBackground,styles.cardShadow,{ backgroundColor: '#eb0a24'}]}>
+        <View style={[styles.cardBackground, { backgroundColor: Colors.red}]}>
           <Text style={styles.indexText}>151-200</Text>
           <Text style={styles.indexText}>Unhealthy</Text>
         </View>
-        <View style={[styles.colorBackground, styles.cardShadow,{ backgroundColor: '#6a0674'}]}>
+        <View style={[styles.cardBackground, { backgroundColor: Colors.purple}]}>
           <Text style={styles.indexText}>201-300</Text>
           <Text style={styles.indexText}>Very Unhealthy</Text>
         </View>
-        <View style={[styles.colorBackground, styles.cardShadow,{ backgroundColor: '#5f0f40'}]}>
+        <View style={[styles.cardBackground,{ backgroundColor: Colors.brown}]}>
           <Text style={styles.indexText}>300+</Text>
           <Text style={styles.indexText}>Hazardous</Text>
         </View>
@@ -94,19 +95,7 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   
-  cardShadow: {
-    backgroundColor: 'transparent',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.22,
-    shadowRadius: 2.22,
-    elevation: 3,
-   },
-  
-  wrapper: {
+  cardWrapper: {
     backgroundColor: "#d5ebfcc5",
     position: "absolute",
     top: 160,
@@ -117,7 +106,7 @@ const styles = StyleSheet.create({
     height: 630,
     width: 400,
   },
-  colorBackground:{
+  cardBackground:{
     width: 370,
     flexDirection: "row",
     justifyContent: "space-between",
