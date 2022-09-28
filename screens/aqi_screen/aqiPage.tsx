@@ -5,9 +5,24 @@ import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { StackParamList } from '../../App';
 
+import { useGetAQIQuery } from "../../api/airQualityAPI";
+import { useSelector } from 'react-redux';
+import { RootState } from "../../app/store"
+
 type AQIScreenProps = NativeStackScreenProps<StackParamList, "Main">;
 
 const Aqi: FC<AQIScreenProps> = (props) => {
+
+  let aqiCity = useSelector((store: RootState) => store.city.cityName)
+  const { data, error, isLoading } = useGetAQIQuery(aqiCity);
+
+  if (isLoading) {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.aqiInfoText}>Loading...</Text>
+      </View>
+    )
+  }
 
   return (
     <View style={styles.container}>
