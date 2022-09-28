@@ -58,7 +58,6 @@ const Search: FC<SearchScreenProps> = (props) => {
       console.log("This is Search page ====> " + city)
       setCity("");
     }
-
   }
   return (
     <View style={styles.container}>
