@@ -9,18 +9,23 @@ import {
   Alert,
 } from "react-native";
 import * as Location from "expo-location";
+
 import { Ionicons } from "@expo/vector-icons";
+
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { StackParamList } from "../../App";
 
+import { useDispatch } from 'react-redux';
 
-import { useGetAQIQuery } from "../../api/airQualityAPI";
+import { getCity } from "../../api/cityNameSlice";
 
 type SearchScreenProps = NativeStackScreenProps<StackParamList, "Search">;
 
 const Search: FC<SearchScreenProps> = (props) => {
   const [location, setLocation] = useState("");
   const [city, setCity] = useState("");
+
+  const dispatch = useDispatch()
 
   useEffect(() => {
     (async () => {
@@ -44,20 +49,17 @@ const Search: FC<SearchScreenProps> = (props) => {
     })();
   }, []);
 
-  const { data, error, isLoading, isError } = useGetAQIQuery(city); //props.city
-
   const submitHandler = () => {
     if (city === "") {
       Alert.alert("Can't leave blank. Please enter a city.")
     } else {
       props.navigation.push("Main");
+      dispatch(getCity(city))
+      console.log("This is Search page ====> " + city)
       setCity("");
     }
 
   }
-
-  console.log(data);
-
   return (
     <View style={styles.container}>
 
@@ -77,7 +79,6 @@ const Search: FC<SearchScreenProps> = (props) => {
       </View>
 
       <Pressable onPress={submitHandler} style={styles.button}><Text style={styles.buttonText}>Search</Text></Pressable>
-      {isLoading && <Text>"Loading..."</Text>}
 
     </View>
   );
