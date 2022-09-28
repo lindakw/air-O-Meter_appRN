@@ -16,6 +16,9 @@ const Aqi: FC<AQIScreenProps> = (props) => {
   let aqiCity = useSelector((store: RootState) => store.city.cityName)
   const { data, error, isLoading } = useGetAQIQuery(aqiCity);
 
+  const aqiInfo = data?.data;
+  const cityName = aqiCity.toUpperCase();
+
   if (isLoading) {
     return (
       <View style={styles.container}>
@@ -46,13 +49,13 @@ const Aqi: FC<AQIScreenProps> = (props) => {
 
 
         <Text style={styles.title}>AirOMeter</Text>
-        <Text style={styles.cityName}>Fresno</Text>
+        <Text style={styles.cityName}>{cityName}</Text>
 
 
         <View style={styles.aqiCircle}>
           <View style={styles.aqiTextContainer}>
             <Text style={styles.aqiTextTitle}>AQI</Text>
-            <Text style={styles.aqiTextNum}>35</Text>
+            <Text style={styles.aqiTextNum}>{aqiInfo.aqi}</Text>
           </View>
         </View>
 
@@ -133,6 +136,7 @@ const styles = StyleSheet.create({
   },
   cityName: {
     textAlign: "center",
+    fontSize: 24,
   },
   aqiCircle: {
     alignSelf: "center",
