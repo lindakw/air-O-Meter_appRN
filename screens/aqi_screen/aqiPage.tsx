@@ -13,11 +13,8 @@ type AQIScreenProps = NativeStackScreenProps<StackParamList, "Main">;
 
 const Aqi: FC<AQIScreenProps> = (props) => {
 
-  let cityName = useSelector((store: RootState) => store.city.value)
-  const { data, error, isLoading } = useGetAQIQuery(cityName);
-
-  console.log(data);
-  console.log(error);
+  let aqiCity = useSelector((store: RootState) => store.city.cityName)
+  const { data, error, isLoading } = useGetAQIQuery(aqiCity);
 
   if (isLoading) {
     return (
