@@ -5,9 +5,25 @@ import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { StackParamList } from '../../App';
 
+import { useGetAQIQuery } from "../../api/airQualityAPI";
+import { useSelector } from 'react-redux';
+import { RootState } from "../../app/store"
+
 type AQIScreenProps = NativeStackScreenProps<StackParamList, "Main">;
 
 const Aqi: FC<AQIScreenProps> = (props) => {
+
+  let aqiCity = useSelector((store: RootState) => store.city.cityName)
+  const { data, error, isLoading } = useGetAQIQuery(aqiCity);
+
+  if (isLoading) {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.aqiInfoText}>Loading...</Text>
+      </View>
+    )
+  }
+
   return (
     <View style={styles.container}>
       <ImageBackground source={require("../../assets/air2.jpeg")} resizeMode="cover" style={{ width: "100%", height: "100%" }}>
@@ -23,7 +39,7 @@ const Aqi: FC<AQIScreenProps> = (props) => {
             <Ionicons name="ios-search" size={32} color="black" />
           </Pressable>
 
-          <Pressable onPress={()=>props.navigation.push('IndexPage')}>
+          <Pressable onPress={() => props.navigation.push('IndexPage')}>
             <Ionicons name="information" size={36} color="black" />
           </Pressable>
         </View>
