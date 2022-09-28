@@ -53,10 +53,9 @@ const Search: FC<SearchScreenProps> = (props) => {
       props.navigation.push("Main");
       setCity("");
     }
-
   }
 
-  console.log(data);
+  //console.log(data);
 
   return (
     <View style={styles.container}>

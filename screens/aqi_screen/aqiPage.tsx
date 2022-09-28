@@ -8,6 +8,7 @@ import { StackParamList } from '../../App';
 type AQIScreenProps = NativeStackScreenProps<StackParamList, "Main">;
 
 const Aqi: FC<AQIScreenProps> = (props) => {
+
   return (
     <View style={styles.container}>
       <ImageBackground source={require("../../assets/air2.jpeg")} resizeMode="cover" style={{ width: "100%", height: "100%" }}>
@@ -23,7 +24,7 @@ const Aqi: FC<AQIScreenProps> = (props) => {
             <Ionicons name="ios-search" size={32} color="black" />
           </Pressable>
 
-          <Pressable onPress={()=>props.navigation.push('IndexPage')}>
+          <Pressable onPress={() => props.navigation.push('IndexPage')}>
             <Ionicons name="information" size={36} color="black" />
           </Pressable>
         </View>
