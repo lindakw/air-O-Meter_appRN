@@ -21,6 +21,23 @@ const Aqi: FC<AQIScreenProps> = (props) => {
   const aqiInfo = data?.data;
   const cityName = aqiCity.toUpperCase();
 
+  const dayname = (date: string) => {
+
+    const days = [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+    ];
+
+    const dt = new Date(date);
+    const day = dt.getDay();
+    return days[day];
+  };
+
   if (isLoading) {
     return (
       <View style={styles.container}>
@@ -72,19 +89,21 @@ const Aqi: FC<AQIScreenProps> = (props) => {
         <Text style={styles.forecastTitle}>Forecast</Text>
         <View style={styles.aqiInfoBox}>
           <View style={styles.forecastDay}>
-            <Text>Tuesday</Text>
+            <Text>{aqiInfo ? dayname(aqiInfo.forecast.daily.pm25[4].day) : "N/A"}</Text>
+            <Text>{aqiInfo ? aqiInfo.forecast.daily.pm25[4].avg : "N/A"}</Text>
+            <View style={styles.aqiDayColor}>
+            </View>
+          </View>
+          <View style={styles.forecastDay}>
+            <Text>{aqiInfo ? dayname(aqiInfo.forecast.daily.pm25[5].day) : "N/A"}</Text>
+            <Text>{aqiInfo ? aqiInfo.forecast.daily.pm25[5].avg : "N/A"}</Text>
             <View style={styles.aqiDayColor}>
 
             </View>
           </View>
           <View style={styles.forecastDay}>
-            <Text>Wednesday</Text>
-            <View style={styles.aqiDayColor}>
-
-            </View>
-          </View>
-          <View style={styles.forecastDay}>
-            <Text>Thursday</Text>
+            <Text>{aqiInfo ? dayname(aqiInfo.forecast.daily.pm25[6].day) : "N/A"}</Text>
+            <Text>{aqiInfo ? aqiInfo.forecast.daily.pm25[6].avg : "N/A"}</Text>
             <View style={styles.aqiDayColor}>
 
             </View>
@@ -175,10 +194,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     backgroundColor: "rgba(255, 255, 255, .5)",
     width: 350,
-    height: 100,
+    height: 115,
     borderRadius: 5,
     alignSelf: "center",
     alignItems: "center",
+    justifyContent: "center"
   },
   phoneIcon: {
     marginLeft: 25,
