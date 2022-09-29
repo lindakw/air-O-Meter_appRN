@@ -7,7 +7,9 @@ import { StackParamList } from '../../App';
 
 import { useGetAQIQuery } from "../../api/airQualityAPI";
 import { useSelector } from 'react-redux';
-import { RootState } from "../../app/store"
+import { RootState } from "../../app/store";
+import aqiText from './widgets/aqiText';
+import aqiLevel from './widgets/aqiLevel';
 
 type AQIScreenProps = NativeStackScreenProps<StackParamList, "Main">;
 
@@ -76,12 +78,12 @@ const Aqi: FC<AQIScreenProps> = (props) => {
           </View>
         </View>
 
-        <Text style={styles.aqiInfoText}>Good</Text>
+        {aqiInfo ? aqiLevel(aqiInfo.aqi) : "N/A"}
 
 
         <View style={styles.aqiInfoBox}>
           <MaterialIcons name="perm-device-info" style={styles.phoneIcon} size={36} color="black" />
-          <Text style={styles.aqiTextAdvice}>The air quality is good! It's a nice day to go for a run outside!</Text>
+          {aqiInfo ? aqiText(aqiInfo.aqi) : "N/A"}
         </View>
 
         <Text style={styles.forecastTitle}>Forecast</Text>
@@ -155,6 +157,7 @@ const styles = StyleSheet.create({
   },
   cityName: {
     textAlign: "center",
+    fontSize: 24,
   },
   aqiCircle: {
     alignSelf: "center",
@@ -199,11 +202,6 @@ const styles = StyleSheet.create({
   },
   phoneIcon: {
     marginLeft: 25,
-  },
-  aqiTextAdvice: {
-    marginLeft: 10,
-    padding: 15,
-    width: 250,
   },
   forecastTitle: {
     fontSize: 16,
