@@ -8,8 +8,10 @@ import { StackParamList } from '../../App';
 import { useGetAQIQuery } from "../../api/airQualityAPI";
 import { useSelector } from 'react-redux';
 import { RootState } from "../../app/store";
+
 import aqiText from './widgets/aqiText';
 import aqiLevel from './widgets/aqiLevel';
+import aqiForecast from './widgets/aqiForecast';
 
 type AQIScreenProps = NativeStackScreenProps<StackParamList, "Main">;
 
@@ -87,26 +89,46 @@ const Aqi: FC<AQIScreenProps> = (props) => {
         </View>
 
         <Text style={styles.forecastTitle}>Forecast</Text>
+
         <View style={styles.aqiInfoBox}>
-          <View style={styles.forecastDay}>
-            <Text>{aqiInfo ? dayname(aqiInfo.forecast.daily.pm25[4].day) : "N/A"}</Text>
-            <Text>{aqiInfo ? aqiInfo.forecast.daily.pm25[4].avg : "N/A"}</Text>
-            <View style={styles.aqiDayColor}>
-            </View>
-          </View>
-          <View style={styles.forecastDay}>
-            <Text>{aqiInfo ? dayname(aqiInfo.forecast.daily.pm25[5].day) : "N/A"}</Text>
-            <Text>{aqiInfo ? aqiInfo.forecast.daily.pm25[5].avg : "N/A"}</Text>
-            <View style={styles.aqiDayColor}>
 
-            </View>
-          </View>
           <View style={styles.forecastDay}>
-            <Text>{aqiInfo ? dayname(aqiInfo.forecast.daily.pm25[6].day) : "N/A"}</Text>
-            <Text>{aqiInfo ? aqiInfo.forecast.daily.pm25[6].avg : "N/A"}</Text>
-            <View style={styles.aqiDayColor}>
 
+            <View style={styles.dailyInfo}>
+              <Text>{aqiInfo ? dayname(aqiInfo.forecast.daily.pm25[4].day) : "N/A"}</Text>
+              <Text>{aqiInfo ? aqiInfo.forecast.daily.pm25[4].avg : "N/A"}</Text>
             </View>
+
+            <View style={styles.dailyInfoBar}>
+              {aqiForecast(aqiInfo.forecast.daily.pm25[4].avg)}
+            </View>
+
+          </View>
+
+          <View style={styles.forecastDay}>
+
+            <View style={styles.dailyInfo}>
+              <Text>{aqiInfo ? dayname(aqiInfo.forecast.daily.pm25[5].day) : "N/A"}</Text>
+              <Text>{aqiInfo ? aqiInfo.forecast.daily.pm25[5].avg : "N/A"}</Text>
+            </View>
+
+            <View style={styles.dailyInfoBar}>
+              {aqiForecast(aqiInfo.forecast.daily.pm25[5].avg)}
+            </View>
+
+          </View>
+
+          <View style={styles.forecastDay}>
+
+            <View style={styles.dailyInfo}>
+              <Text>{aqiInfo ? dayname(aqiInfo.forecast.daily.pm25[6].day) : "N/A"}</Text>
+              <Text>{aqiInfo ? aqiInfo.forecast.daily.pm25[6].avg : "N/A"}</Text>
+            </View>
+
+            <View style={styles.dailyInfoBar}>
+              {aqiForecast(aqiInfo.forecast.daily.pm25[6].avg)}
+            </View>
+
           </View>
 
         </View>
@@ -193,7 +215,7 @@ const styles = StyleSheet.create({
   aqiInfoBox: {
     flexDirection: "row",
     backgroundColor: "rgba(255, 255, 255, .5)",
-    width: 350,
+    width: 380,
     height: 115,
     borderRadius: 5,
     alignSelf: "center",
@@ -209,13 +231,21 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   forecastDay: {
-    margin: 25,
-    alignItems: "center"
+    flex: 1,
+    height: "100%",
+    marginHorizontal: 25,
+    flexDirection: "column",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
-  aqiDayColor: {
-    backgroundColor: "orange",
-    width: 50,
-    height: 75,
+  dailyInfo: {
+    alignItems: "center",
+    height: "35%",
+  },
+  dailyInfoBar: {
+    height: "65%",
+    flexDirection: "column",
+    justifyContent: "flex-end",
   },
   bottomWidgetContainer: {
     flexDirection: "row",
