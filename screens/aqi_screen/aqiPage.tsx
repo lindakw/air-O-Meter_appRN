@@ -21,6 +21,7 @@ const Aqi: FC<AQIScreenProps> = (props) => {
   const { data, error, isLoading } = useGetAQIQuery(aqiCity);
 
   const aqiInfo = data?.data;
+
   const cityName = aqiCity.toUpperCase();
 
   const dayname = (date: string) => {
@@ -135,15 +136,15 @@ const Aqi: FC<AQIScreenProps> = (props) => {
 
         <View style={styles.bottomWidgetContainer}>
           <View style={styles.widgetBox}>
-            <Text>Pollen</Text>
+            <Text>UV Avg</Text>
             <View style={styles.smallCircle}>
-              <Text style={styles.widgetText}>61</Text>
+            <Text style={styles.widgetText}>{aqiInfo ? aqiInfo.forecast.daily.uvi[0].avg : "N/A"}</Text>
             </View>
           </View>
           <View style={styles.widgetBox}>
             <Text>UV Index</Text>
             <View style={styles.smallCircle}>
-              <Text style={styles.widgetText}>2</Text>
+            <Text style={styles.widgetText}>{aqiInfo ? aqiInfo.forecast.daily.uvi[0].max : "N/A"}</Text>
             </View>
           </View>
         </View>
