@@ -18,6 +18,8 @@ import { StackParamList } from "../../App";
 import { useDispatch } from 'react-redux';
 
 import { getCity } from "../../api/cityNameSlice";
+import { getLocation } from "../../api/locationSlice";
+import { getIsGeoLoading } from "../../api/geoLoadingSlice";
 
 type SearchScreenProps = NativeStackScreenProps<StackParamList, "Search">;
 
@@ -30,6 +32,7 @@ const Search: FC<SearchScreenProps> = (props) => {
   useEffect(() => {
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
+
       if (status !== "granted") {
         alert("Permission to access location was denied"); useEffect(() => {
           (async () => {
@@ -40,12 +43,25 @@ const Search: FC<SearchScreenProps> = (props) => {
 
             let currentLocation: any = await Location.getCurrentPositionAsync({});
             setLocation(currentLocation);
+
           })();
         }, []);
       }
 
-      let currentLocation: any = await Location.getCurrentPositionAsync({});
-      setLocation(currentLocation);
+      let currentLocation = await Location.getCurrentPositionAsync({});
+
+      let latitude = currentLocation.coords.latitude;
+      let longitude = currentLocation.coords.longitude;
+
+      let userLocation = latitude + ";" + longitude;
+
+      setLocation(userLocation);
+
+      dispatch(getLocation(location))
+      dispatch(getIsGeoLoading(true))
+
+      props.navigation.push("Main");
+
     })();
   }, []);
 
@@ -55,14 +71,13 @@ const Search: FC<SearchScreenProps> = (props) => {
     } else {
       props.navigation.push("Main");
       dispatch(getCity(city))
-      console.log("This is Search page ====> " + city)
+      dispatch(getIsGeoLoading(false))
       setCity("");
     }
   }
+
   return (
     <View style={styles.container}>
-
-
       <Image style={styles.logo} source={require("../../assets/logo.png")} />
       <Text style={styles.logoText}>AirOMeter</Text>
       <View style={styles.inputContainer}>

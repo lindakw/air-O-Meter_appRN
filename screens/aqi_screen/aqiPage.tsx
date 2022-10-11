@@ -5,7 +5,8 @@ import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { StackParamList } from '../../App';
 
-import { useGetAQIQuery } from "../../api/airQualityAPI";
+import { useGetAQIQuery, useGetLocationQuery } from "../../api/airQualityAPI";
+
 import { useSelector } from 'react-redux';
 import { RootState } from "../../app/store";
 
@@ -18,7 +19,10 @@ type AQIScreenProps = NativeStackScreenProps<StackParamList, "Main">;
 const Aqi: FC<AQIScreenProps> = (props) => {
 
   let aqiCity = useSelector((store: RootState) => store.city.cityName)
-  const { data, error, isLoading } = useGetAQIQuery(aqiCity);
+  let aqiLocation = useSelector((store: RootState) => store.location.locationInfo)
+  let geoLoad = useSelector((store: RootState) => store.geoLoading.isLoading)
+
+  let { data, error, isLoading } = geoLoad ? useGetLocationQuery(aqiLocation) : useGetAQIQuery(aqiCity);
 
   const aqiInfo = data?.data;
 
@@ -81,12 +85,13 @@ const Aqi: FC<AQIScreenProps> = (props) => {
           </View>
         </View>
 
-        {aqiInfo ? aqiLevel(aqiInfo.aqi) : "N/A"}
+        <Text>{aqiInfo ? aqiLevel(aqiInfo.aqi) : "N/A"}</Text>
+
 
 
         <View style={styles.aqiInfoBox}>
           <MaterialIcons name="perm-device-info" style={styles.phoneIcon} size={36} color="black" />
-          {aqiInfo ? aqiText(aqiInfo.aqi) : "N/A"}
+          <Text>{aqiInfo ? aqiText(aqiInfo.aqi) : "N/A"}</Text>
         </View>
 
         <Text style={styles.forecastTitle}>Forecast</Text>
@@ -101,7 +106,7 @@ const Aqi: FC<AQIScreenProps> = (props) => {
             </View>
 
             <View style={styles.dailyInfoBar}>
-              {aqiForecast(aqiInfo.forecast.daily.pm25[4].avg)}
+              {aqiInfo ? aqiForecast(aqiInfo.forecast.daily.pm25[4].avg) : <Text>N/A</Text>}
             </View>
 
           </View>
@@ -114,7 +119,7 @@ const Aqi: FC<AQIScreenProps> = (props) => {
             </View>
 
             <View style={styles.dailyInfoBar}>
-              {aqiForecast(aqiInfo.forecast.daily.pm25[5].avg)}
+              {aqiInfo ? aqiForecast(aqiInfo.forecast.daily.pm25[5].avg) : <Text>N/A</Text>}
             </View>
 
           </View>
@@ -127,7 +132,7 @@ const Aqi: FC<AQIScreenProps> = (props) => {
             </View>
 
             <View style={styles.dailyInfoBar}>
-              {aqiForecast(aqiInfo.forecast.daily.pm25[6].avg)}
+              {aqiInfo ? aqiForecast(aqiInfo.forecast.daily.pm25[6].avg) : <Text>N/A</Text>}
             </View>
 
           </View>
@@ -138,13 +143,13 @@ const Aqi: FC<AQIScreenProps> = (props) => {
           <View style={styles.widgetBox}>
             <Text>UV Avg</Text>
             <View style={styles.smallCircle}>
-            <Text style={styles.widgetText}>{aqiInfo ? aqiInfo.forecast.daily.uvi[0].avg : "N/A"}</Text>
+              <Text style={styles.widgetText}>{aqiInfo ? aqiInfo.forecast.daily.uvi[0].avg : "N/A"}</Text>
             </View>
           </View>
           <View style={styles.widgetBox}>
             <Text>UV Index</Text>
             <View style={styles.smallCircle}>
-            <Text style={styles.widgetText}>{aqiInfo ? aqiInfo.forecast.daily.uvi[0].max : "N/A"}</Text>
+              <Text style={styles.widgetText}>{aqiInfo ? aqiInfo.forecast.daily.uvi[0].max : "N/A"}</Text>
             </View>
           </View>
         </View>
