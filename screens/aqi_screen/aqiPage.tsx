@@ -18,11 +18,11 @@ type AQIScreenProps = NativeStackScreenProps<StackParamList, "Main">;
 
 const Aqi: FC<AQIScreenProps> = (props) => {
 
-  let aqiCity = useSelector((store: RootState) => store.city.cityName)
-  let aqiLocation = useSelector((store: RootState) => store.location.locationInfo)
-  let geoLoad = useSelector((store: RootState) => store.geoLoading.isLoading)
+  let aqiCity = useSelector((store: RootState) => store.location.cityName);
+  let aqiLocation = useSelector((store: RootState) => store.location.locationInfo);
+  let useLocation = useSelector((store: RootState) => store.location.useLocationData);
 
-  let { data, error, isLoading } = geoLoad ? useGetLocationQuery(aqiLocation) : useGetAQIQuery(aqiCity);
+  let { data, error, isLoading } = useLocation ? useGetLocationQuery(aqiLocation) : useGetAQIQuery(aqiCity);
 
   const aqiInfo = data?.data;
 
