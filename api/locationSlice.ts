@@ -1,12 +1,15 @@
-import { createSlice } from "@reduxjs/toolkit";
-import type { PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface locationState {
-  locationInfo: string
+  cityName: string,
+  locationInfo: string,
+  useLocationData: boolean,
 }
 
 const initialState: locationState = {
+  cityName: "",
   locationInfo: "",
+  useLocationData: false,
 }
 
 
@@ -14,11 +17,17 @@ const locationSlice = createSlice({
   name: "location",
   initialState,
   reducers: {
-    getLocation: (state, action: PayloadAction<string>) => {
+    setCity: (state, action: PayloadAction<string>) => {
+      state.cityName = action.payload;
+    },
+    setLocation: (state, action: PayloadAction<string>) => {
       state.locationInfo = action.payload;
+    },
+    setUseLocationData: (state, action: PayloadAction<string>) => {
+      state.useLocationData = action.payload;
     },
   },
 })
 
-export const { getLocation } = locationSlice.actions;
+export const { setCity, setLocation, setUseLocationData } = locationSlice.actions;
 export default locationSlice.reducer;
