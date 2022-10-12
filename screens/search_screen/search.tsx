@@ -17,9 +17,7 @@ import { StackParamList } from "../../App";
 
 import { useDispatch } from 'react-redux';
 
-import { getCity } from "../../api/cityNameSlice";
-import { getLocation } from "../../api/locationSlice";
-import { getIsGeoLoading } from "../../api/geoLoadingSlice";
+import { setCity, setLocation, setUseLocationData } from "../../api/locationSlice";
 
 type SearchScreenProps = NativeStackScreenProps<StackParamList, "Search">;
 
@@ -29,25 +27,10 @@ const Search: FC<SearchScreenProps> = (props) => {
 
   const dispatch = useDispatch()
 
-  useEffect(() => {
-    (async () => {
-      let { status } = await Location.requestForegroundPermissionsAsync();
+  const getMyLocation = async () => {
+    let { status } = await Location.requestForegroundPermissionsAsync();
 
-      if (status !== "granted") {
-        alert("Permission to access location was denied"); useEffect(() => {
-          (async () => {
-            let { status } = await Location.requestForegroundPermissionsAsync();
-            if (status !== "granted") {
-              alert("Permission to access location was denied");
-            }
-
-            let currentLocation: any = await Location.getCurrentPositionAsync({});
-            setLocation(currentLocation);
-
-          })();
-        }, []);
-      }
-
+    if (status === "granted") {
       let currentLocation = await Location.getCurrentPositionAsync({});
 
       let latitude = currentLocation.coords.latitude;
@@ -55,23 +38,24 @@ const Search: FC<SearchScreenProps> = (props) => {
 
       let userLocation = latitude + ";" + longitude;
 
+      // If user grants location access, switch over to using location data
       setLocation(userLocation);
-
-      dispatch(getLocation(location))
-      dispatch(getIsGeoLoading(true))
-
+      dispatch(setLocation(location));
+      dispatch(setUseLocationData(true));
       props.navigation.push("Main");
-
-    })();
-  }, []);
+    }
+    else {
+      alert("Permission to access location was denied");       
+    }
+  }
 
   const submitHandler = () => {
     if (city === "") {
       Alert.alert("Can't leave blank. Please enter a city.")
     } else {
       props.navigation.push("Main");
-      dispatch(getCity(city))
-      dispatch(getIsGeoLoading(false))
+      dispatch(setCity(city));
+      dispatch(setUseLocationData(false));
       setCity("");
     }
   }
