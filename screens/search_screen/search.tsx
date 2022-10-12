@@ -8,7 +8,9 @@ import {
   Pressable,
   Alert,
 } from "react-native";
+import { Entypo } from '@expo/vector-icons';
 import * as Location from "expo-location";
+
 
 import { Ionicons } from "@expo/vector-icons";
 
@@ -39,8 +41,8 @@ const Search: FC<SearchScreenProps> = (props) => {
       let userLocation = latitude + ";" + longitude;
 
       // If user grants location access, switch over to using location data
-      setLocationLocal(userLocation);
-      dispatch(setLocation(location));
+      setLocationLocal(location);
+      dispatch(setLocation(userLocation));
       dispatch(setUseLocationData(true));
       props.navigation.push("Main");
     }
@@ -62,6 +64,9 @@ const Search: FC<SearchScreenProps> = (props) => {
 
   return (
     <View style={styles.container}>
+     <Pressable onPress={getMyLocation} style={styles.locationIcon}>
+     <Entypo name="location-pin" size={24} color="black" />
+      </Pressable> 
       <Image style={styles.logo} source={require("../../assets/logo.png")} />
       <Text style={styles.logoText}>AirOMeter</Text>
       <View style={styles.inputContainer}>
