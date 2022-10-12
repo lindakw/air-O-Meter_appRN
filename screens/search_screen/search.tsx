@@ -22,8 +22,8 @@ import { setCity, setLocation, setUseLocationData } from "../../api/locationSlic
 type SearchScreenProps = NativeStackScreenProps<StackParamList, "Search">;
 
 const Search: FC<SearchScreenProps> = (props) => {
-  const [location, setLocation] = useState("");
-  const [city, setCity] = useState("");
+  const [location, setLocationLocal] = useState("");
+  const [city, setCityLocal] = useState("");
 
   const dispatch = useDispatch()
 
@@ -39,13 +39,13 @@ const Search: FC<SearchScreenProps> = (props) => {
       let userLocation = latitude + ";" + longitude;
 
       // If user grants location access, switch over to using location data
-      setLocation(userLocation);
+      setLocationLocal(userLocation);
       dispatch(setLocation(location));
       dispatch(setUseLocationData(true));
       props.navigation.push("Main");
     }
     else {
-      alert("Permission to access location was denied");       
+      alert("Permission to access location was denied");
     }
   }
 
@@ -56,7 +56,7 @@ const Search: FC<SearchScreenProps> = (props) => {
       props.navigation.push("Main");
       dispatch(setCity(city));
       dispatch(setUseLocationData(false));
-      setCity("");
+      setCityLocal("");
     }
   }
 
@@ -67,7 +67,7 @@ const Search: FC<SearchScreenProps> = (props) => {
       <View style={styles.inputContainer}>
         <TextInput
           placeholder="Enter City Name"
-          onChangeText={setCity}
+          onChangeText={setCityLocal}
           value={city}
           style={styles.input}
         />
@@ -119,10 +119,9 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   searchIcon: {
-    borderTopWidth: 1,
-    borderBottomWidth: 1,
-    borderLefWidth: 1,
+    borderWidth: 1,
     padding: 7,
+    height: 40,
   },
   button: {
     alignItems: "center",

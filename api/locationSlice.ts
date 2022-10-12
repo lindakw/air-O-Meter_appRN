@@ -23,7 +23,7 @@ const locationSlice = createSlice({
     setLocation: (state, action: PayloadAction<string>) => {
       state.locationInfo = action.payload;
     },
-    setUseLocationData: (state, action: PayloadAction<string>) => {
+    setUseLocationData: (state, action: PayloadAction<boolean>) => {
       state.useLocationData = action.payload;
     },
   },

@@ -61,7 +61,7 @@ const Aqi: FC<AQIScreenProps> = (props) => {
         <View style={styles.topNav}>
           <Pressable
             style={styles.backIcon}
-            onPress={() => props.navigation.goBack()}
+            onPress={() => props.navigation.navigate("Search")}
           ><Ionicons name="chevron-back-outline" size={36} color="black" /></Pressable>
 
           <Pressable onPress={() => props.navigation.navigate("Search")}>
@@ -85,13 +85,13 @@ const Aqi: FC<AQIScreenProps> = (props) => {
           </View>
         </View>
 
-        <Text>{aqiInfo ? aqiLevel(aqiInfo.aqi) : "N/A"}</Text>
+        <Text style={styles.aqiDesc}>{aqiInfo ? aqiLevel(aqiInfo.aqi) : "N/A"}</Text>
 
 
 
         <View style={styles.aqiInfoBox}>
           <MaterialIcons name="perm-device-info" style={styles.phoneIcon} size={36} color="black" />
-          <Text>{aqiInfo ? aqiText(aqiInfo.aqi) : "N/A"}</Text>
+          <Text style={styles.aqiInfoText}>{aqiInfo ? aqiText(aqiInfo.aqi) : "N/A"}</Text>
         </View>
 
         <Text style={styles.forecastTitle}>Forecast</Text>
@@ -213,10 +213,15 @@ const styles = StyleSheet.create({
     fontSize: 36,
     fontWeight: "600",
   },
+  aqiDesc: {
+    textAlign: "center",
+    margin: 5,
+  },
   aqiInfoText: {
     fontSize: 20,
     textAlign: "center",
     margin: 10,
+    width: 300,
   },
   aqiInfoBox: {
     flexDirection: "row",
