@@ -10,9 +10,11 @@ export const airQualityAPI = createApi({
   endpoints: (build) => ({
     getAQI: build.query({
       query: (city) => `${city}/?token=${API_KEY}`
+    }),
+    getLocation: build.query({
+      query: (location) => `geo:${location}/?token=${API_KEY}`
     })
   })
 })
 
-
-export const {useGetAQIQuery} = airQualityAPI
+export const {useGetAQIQuery, useGetLocationQuery} = airQualityAPI
