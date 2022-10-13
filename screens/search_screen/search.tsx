@@ -11,7 +11,6 @@ import {
 import { Entypo } from '@expo/vector-icons';
 import * as Location from "expo-location";
 
-
 import { Ionicons } from "@expo/vector-icons";
 
 import { NativeStackScreenProps } from "@react-navigation/native-stack";

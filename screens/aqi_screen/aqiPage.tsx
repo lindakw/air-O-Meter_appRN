@@ -13,6 +13,7 @@ import { RootState } from "../../app/store";
 import aqiText from './widgets/aqiText';
 import aqiLevel from './widgets/aqiLevel';
 import aqiForecast from './widgets/aqiForecast';
+import aqiCircle from './widgets/aqiMainCircle';
 
 type AQIScreenProps = NativeStackScreenProps<StackParamList, "Main">;
 
@@ -79,12 +80,10 @@ const Aqi: FC<AQIScreenProps> = (props) => {
         <Text style={styles.title}>AirOMeter</Text>
         <Text style={styles.cityName}>{aqiInfo ? currentCity : "N/A"}</Text>
 
-
-        <View style={styles.aqiCircle}>
-          <View style={styles.aqiTextContainer}>
-            <Text style={styles.aqiTextTitle}>AQI</Text>
-            <Text style={styles.aqiTextNum}>{aqiInfo ? aqiInfo.aqi : "N/A"}</Text>
-          </View>
+        <View style={styles.aqiTextContainer}>
+          {aqiInfo ? aqiCircle(aqiInfo.aqi) : "N/A"}
+          <Text style={styles.aqiTextTitle}>AQI</Text>
+          <Text style={styles.aqiTextNum}>{aqiInfo ? aqiInfo.aqi : "N/A"}</Text>
         </View>
 
         <Text style={styles.aqiDesc}>{aqiInfo ? aqiLevel(aqiInfo.aqi) : "N/A"}</Text>
@@ -190,35 +189,28 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 20,
   },
-  aqiCircle: {
-    alignSelf: "center",
-    alignItems: "center",
-    width: 200,
-    height: 200,
-    borderRadius: 200 / 2,
-    backgroundColor: "#ff7e00",
-    marginTop: 15,
-    padding: 0,
-  },
   aqiTextContainer: {
     flex: 1,
     justifyContent: "center",
     alignContent: "center",
     padding: 0,
+    marginTop: 15,
+    marginBottom: 65,
   },
   aqiTextTitle: {
     fontSize: 24,
     textAlign: "center",
     marginBottom: 10,
-    marginTop: -25,
+    marginTop: -150,
   },
   aqiTextNum: {
     fontSize: 36,
     fontWeight: "600",
+    textAlign: "center",
   },
   aqiDesc: {
     textAlign: "center",
-    margin: 5,
+    margin: 10,
   },
   aqiInfoText: {
     fontSize: 20,
