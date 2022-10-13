@@ -25,6 +25,8 @@ const Aqi: FC<AQIScreenProps> = (props) => {
   let { data, error, isLoading } = useLocation ? useGetLocationQuery(aqiLocation) : useGetAQIQuery(aqiCity);
 
   const aqiInfo = data?.data;
+  let currentCity = aqiInfo?.city.name.split('-')[0]
+
 
   const cityName = aqiCity.toUpperCase();
 
@@ -52,7 +54,7 @@ const Aqi: FC<AQIScreenProps> = (props) => {
       </View>
     )
   }
-
+ 
   return (
     <View style={styles.container}>
       <ImageBackground source={require("../../assets/air2.jpeg")} resizeMode="cover" style={{ width: "100%", height: "100%" }}>
@@ -60,12 +62,12 @@ const Aqi: FC<AQIScreenProps> = (props) => {
 
         <View style={styles.topNav}>
           <Pressable
-            style={styles.backIcon}
+            
             onPress={() => props.navigation.navigate("Search")}
           ><Ionicons name="chevron-back-outline" size={36} color="black" /></Pressable>
 
-          <Pressable onPress={() => props.navigation.navigate("Search")}>
-            <Ionicons name="ios-search" size={32} color="black" />
+          <Pressable onPress={() => props.navigation.navigate("Search")} style={styles.searchIcon}>
+            <Ionicons name="ios-search" size={30} color="black" />
           </Pressable>
 
           <Pressable onPress={() => props.navigation.push('IndexPage')}>
@@ -75,7 +77,7 @@ const Aqi: FC<AQIScreenProps> = (props) => {
 
 
         <Text style={styles.title}>AirOMeter</Text>
-        <Text style={styles.cityName}>{cityName}</Text>
+        <Text style={styles.cityName}>{aqiInfo ? currentCity : "N/A"}</Text>
 
 
         <View style={styles.aqiCircle}>
@@ -166,26 +168,27 @@ const styles = StyleSheet.create({
     alignContent: "center"
   },
   topNav: {
-    marginTop: 30,
+    marginTop: 65,
     flexDirection: "row",
     padding: 0,
-    height: 50
-  },
-  backIcon: {
-    alignItems: "flex-start",
-    marginRight: 275
+    height: 50,
+    justifyContent:'space-between'
   },
   searchIcon: {
-
+    alignItems: "flex-end",
+    marginLeft: 270,
+    marginTop:8
   },
+  
   title: {
     textAlign: "center",
     marginTop: -10,
     marginBottom: 5,
+    fontSize:25
   },
   cityName: {
     textAlign: "center",
-    fontSize: 24,
+    fontSize: 20,
   },
   aqiCircle: {
     alignSelf: "center",
