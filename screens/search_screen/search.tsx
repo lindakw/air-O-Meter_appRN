@@ -8,8 +8,9 @@ import {
   Pressable,
   Alert,
 } from "react-native";
-import * as Location from "expo-location";
 import { Entypo } from '@expo/vector-icons';
+import * as Location from "expo-location";
+
 import { Ionicons } from "@expo/vector-icons";
 
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
@@ -62,9 +63,9 @@ const Search: FC<SearchScreenProps> = (props) => {
 
   return (
     <View style={styles.container}>
-      <Pressable onPress={getMyLocation} style={styles.locationIcon}>
-        <Entypo name="location-pin" size={24} color="black" />
-      </Pressable>
+     <Pressable onPress={getMyLocation} style={styles.locationIcon}>
+     <Entypo name="location-pin" size={24} color="black" />
+      </Pressable> 
       <Image style={styles.logo} source={require("../../assets/logo.png")} />
       <Text style={styles.logoText}>AirOMeter</Text>
       <View style={styles.inputContainer}>
