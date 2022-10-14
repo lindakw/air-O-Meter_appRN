@@ -63,9 +63,9 @@ const Search: FC<SearchScreenProps> = (props) => {
 
   return (
     <View style={styles.container}>
-     <Pressable onPress={getMyLocation} style={styles.locationIcon}>
-     <Entypo name="location-pin" size={24} color="black" />
-      </Pressable> 
+      <Pressable onPress={getMyLocation} style={styles.locationIcon}>
+        <Entypo name="location-pin" size={24} color="black" />
+      </Pressable>
       <Image style={styles.logo} source={require("../../assets/logo.png")} />
       <Text style={styles.logoText}>AirOMeter</Text>
       <View style={styles.inputContainer}>
@@ -123,7 +123,9 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   searchIcon: {
-    borderWidth: 1,
+    borderTopWidth: 1,
+    borderBottomWidth: 1,
+    borderRightWidth: 1,
     padding: 7,
     height: 40,
   },
