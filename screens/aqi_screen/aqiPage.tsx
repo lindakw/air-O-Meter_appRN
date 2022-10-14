@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Text, View, StyleSheet, ImageBackground, Pressable } from "react-native";
+import { Text, View, StyleSheet, ImageBackground, Pressable, ScrollView } from "react-native";
 
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -55,105 +55,110 @@ const Aqi: FC<AQIScreenProps> = (props) => {
       </View>
     )
   }
- 
+
   return (
     <View style={styles.container}>
       <ImageBackground source={require("../../assets/air2.jpeg")} resizeMode="cover" style={{ width: "100%", height: "100%" }}>
-
-
-        <View style={styles.topNav}>
-          <Pressable
-            
-            onPress={() => props.navigation.navigate("Search")}
-          ><Ionicons name="chevron-back-outline" size={36} color="black" /></Pressable>
-
-          <Pressable onPress={() => props.navigation.navigate("Search")} style={styles.searchIcon}>
-            <Ionicons name="ios-search" size={30} color="black" />
-          </Pressable>
-
-          <Pressable onPress={() => props.navigation.push('IndexPage')}>
-            <Ionicons name="information" size={36} color="black" />
-          </Pressable>
-        </View>
-
-
-        <Text style={styles.title}>AirOMeter</Text>
-        <Text style={styles.cityName}>{aqiInfo ? currentCity : "N/A"}</Text>
-
-        <View style={styles.aqiTextContainer}>
-          {aqiInfo ? aqiCircle(aqiInfo.aqi) : "N/A"}
-          <Text style={styles.aqiTextTitle}>AQI</Text>
-          <Text style={styles.aqiTextNum}>{aqiInfo ? aqiInfo.aqi : "N/A"}</Text>
-        </View>
-
-        <Text style={styles.aqiDesc}>{aqiInfo ? aqiLevel(aqiInfo.aqi) : "N/A"}</Text>
-
-
-
-        <View style={styles.aqiInfoBox}>
-          <MaterialIcons name="perm-device-info" style={styles.phoneIcon} size={36} color="black" />
-          <Text style={styles.aqiInfoText}>{aqiInfo ? aqiText(aqiInfo.aqi) : "N/A"}</Text>
-        </View>
-
-        <Text style={styles.forecastTitle}>Forecast</Text>
-
-        <View style={styles.aqiInfoBox}>
-
-          <View style={styles.forecastDay}>
-
-            <View style={styles.dailyInfo}>
-              <Text>{aqiInfo ? dayname(aqiInfo.forecast.daily.pm25[4].day) : "N/A"}</Text>
-              <Text>{aqiInfo ? aqiInfo.forecast.daily.pm25[4].avg : "N/A"}</Text>
+        <ScrollView>
+          <View style={styles.topNav}>
+            <View style={styles.topLeftNav}>
+              <Pressable onPress={() => props.navigation.navigate("Search")}>
+                <Ionicons name="chevron-back-outline" size={36} color="black" />
+              </Pressable>
             </View>
 
-            <View style={styles.dailyInfoBar}>
-              {aqiInfo ? aqiForecast(aqiInfo.forecast.daily.pm25[4].avg) : <Text>N/A</Text>}
+            <View style={styles.topRightNav}>
+              <Pressable onPress={() => props.navigation.navigate("Search")}>
+                <Ionicons name="ios-search" size={30} color="black" />
+              </Pressable>
+
+              <Pressable onPress={() => props.navigation.push('IndexPage')}>
+                <Ionicons name="information" size={36} color="black" />
+              </Pressable>
             </View>
 
           </View>
 
-          <View style={styles.forecastDay}>
 
-            <View style={styles.dailyInfo}>
-              <Text>{aqiInfo ? dayname(aqiInfo.forecast.daily.pm25[5].day) : "N/A"}</Text>
-              <Text>{aqiInfo ? aqiInfo.forecast.daily.pm25[5].avg : "N/A"}</Text>
+          <Text style={styles.title}>AirOMeter</Text>
+          <Text style={styles.cityName}>{aqiInfo ? currentCity : "N/A"}</Text>
+
+          <View style={styles.aqiTextContainer}>
+            {aqiInfo ? aqiCircle(aqiInfo.aqi) : "N/A"}
+            <Text style={styles.aqiTextTitle}>AQI</Text>
+            <Text style={styles.aqiTextNum}>{aqiInfo ? aqiInfo.aqi : "N/A"}</Text>
+          </View>
+
+          <Text style={styles.aqiDesc}>{aqiInfo ? aqiLevel(aqiInfo.aqi) : "N/A"}</Text>
+
+
+
+          <View style={styles.aqiInfoBox}>
+            <MaterialIcons name="perm-device-info" style={styles.phoneIcon} size={36} color="black" />
+            <Text style={styles.aqiInfoText}>{aqiInfo ? aqiText(aqiInfo.aqi) : "N/A"}</Text>
+          </View>
+
+          <Text style={styles.forecastTitle}>Forecast</Text>
+
+          <View style={styles.aqiInfoBox}>
+
+            <View style={styles.forecastDay}>
+
+              <View style={styles.dailyInfo}>
+                <Text>{aqiInfo ? dayname(aqiInfo.forecast.daily.pm25[4].day) : "N/A"}</Text>
+                <Text>{aqiInfo ? aqiInfo.forecast.daily.pm25[4].avg : "N/A"}</Text>
+              </View>
+
+              <View style={styles.dailyInfoBar}>
+                {aqiInfo ? aqiForecast(aqiInfo.forecast.daily.pm25[4].avg) : <Text>N/A</Text>}
+              </View>
+
             </View>
 
-            <View style={styles.dailyInfoBar}>
-              {aqiInfo ? aqiForecast(aqiInfo.forecast.daily.pm25[5].avg) : <Text>N/A</Text>}
+            <View style={styles.forecastDay}>
+
+              <View style={styles.dailyInfo}>
+                <Text>{aqiInfo ? dayname(aqiInfo.forecast.daily.pm25[5].day) : "N/A"}</Text>
+                <Text>{aqiInfo ? aqiInfo.forecast.daily.pm25[5].avg : "N/A"}</Text>
+              </View>
+
+              <View style={styles.dailyInfoBar}>
+                {aqiInfo ? aqiForecast(aqiInfo.forecast.daily.pm25[5].avg) : <Text>N/A</Text>}
+              </View>
+
+            </View>
+
+            <View style={styles.forecastDay}>
+
+              <View style={styles.dailyInfo}>
+                <Text>{aqiInfo ? dayname(aqiInfo.forecast.daily.pm25[6].day) : "N/A"}</Text>
+                <Text>{aqiInfo ? aqiInfo.forecast.daily.pm25[6].avg : "N/A"}</Text>
+              </View>
+
+              <View style={styles.dailyInfoBar}>
+                {aqiInfo ? aqiForecast(aqiInfo.forecast.daily.pm25[6].avg) : <Text>N/A</Text>}
+              </View>
+
             </View>
 
           </View>
 
-          <View style={styles.forecastDay}>
-
-            <View style={styles.dailyInfo}>
-              <Text>{aqiInfo ? dayname(aqiInfo.forecast.daily.pm25[6].day) : "N/A"}</Text>
-              <Text>{aqiInfo ? aqiInfo.forecast.daily.pm25[6].avg : "N/A"}</Text>
+          <View style={styles.bottomWidgetContainer}>
+            <View style={styles.widgetBox}>
+              <Text>UV Avg</Text>
+              <View style={styles.smallCircle}>
+                <Text style={styles.widgetText}>{aqiInfo ? aqiInfo.forecast.daily.uvi[0].avg : "N/A"}</Text>
+              </View>
             </View>
-
-            <View style={styles.dailyInfoBar}>
-              {aqiInfo ? aqiForecast(aqiInfo.forecast.daily.pm25[6].avg) : <Text>N/A</Text>}
-            </View>
-
-          </View>
-
-        </View>
-
-        <View style={styles.bottomWidgetContainer}>
-          <View style={styles.widgetBox}>
-            <Text>UV Avg</Text>
-            <View style={styles.smallCircle}>
-              <Text style={styles.widgetText}>{aqiInfo ? aqiInfo.forecast.daily.uvi[0].avg : "N/A"}</Text>
+            <View style={styles.widgetBox}>
+              <Text>UV Index</Text>
+              <View style={styles.smallCircle}>
+                <Text style={styles.widgetText}>{aqiInfo ? aqiInfo.forecast.daily.uvi[0].max : "N/A"}</Text>
+              </View>
             </View>
           </View>
-          <View style={styles.widgetBox}>
-            <Text>UV Index</Text>
-            <View style={styles.smallCircle}>
-              <Text style={styles.widgetText}>{aqiInfo ? aqiInfo.forecast.daily.uvi[0].max : "N/A"}</Text>
-            </View>
-          </View>
-        </View>
+        </ScrollView>
+
       </ImageBackground>
     </View>
   )
@@ -167,23 +172,24 @@ const styles = StyleSheet.create({
     alignContent: "center"
   },
   topNav: {
-    marginTop: 65,
+    marginTop: "14%",
     flexDirection: "row",
     padding: 0,
     height: 50,
-    justifyContent:'space-between'
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
-  searchIcon: {
-    alignItems: "flex-end",
-    marginLeft: 270,
-    marginTop:8
+  topLeftNav: {
   },
-  
+  topRightNav: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
   title: {
     textAlign: "center",
     marginTop: -10,
     marginBottom: 5,
-    fontSize:25
+    fontSize: 25
   },
   cityName: {
     textAlign: "center",
@@ -256,10 +262,11 @@ const styles = StyleSheet.create({
   bottomWidgetContainer: {
     flexDirection: "row",
     alignItems: "center",
+    marginBottom: 30,
   },
   widgetBox: {
     backgroundColor: "rgba(255, 255, 255, .5)",
-    width: 155,
+    width: "36%",
     height: 100,
     paddingBottom: 5,
     borderRadius: 5,
