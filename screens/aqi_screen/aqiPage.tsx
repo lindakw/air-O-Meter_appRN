@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Text, View, StyleSheet, ImageBackground, Pressable, ScrollView } from "react-native";
+import { Text, View, StyleSheet, ImageBackground, Pressable, ScrollView, Platform } from "react-native";
 
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -14,7 +14,7 @@ import aqiText from './widgets/aqiText';
 import aqiLevel from './widgets/aqiLevel';
 import aqiForecast from './widgets/aqiForecast';
 import aqiCircle from './widgets/aqiMainCircle';
-
+import uvIndexLevel from './widgets/UvIndexLevel'
 type AQIScreenProps = NativeStackScreenProps<StackParamList, "Main">;
 
 const Aqi: FC<AQIScreenProps> = (props) => {
@@ -26,7 +26,11 @@ const Aqi: FC<AQIScreenProps> = (props) => {
   let { data, error, isLoading } = useLocation ? useGetLocationQuery(aqiLocation) : useGetAQIQuery(aqiCity);
 
   const aqiInfo = data?.data;
-  let currentCity = aqiInfo?.city.name.split('-')[0]
+  
+  let currentCity = aqiInfo?.city?.name
+  const currentLocation = currentCity?.replace(/[^a-zA-Z0-9 ]/g, ' ');
+  let city= currentLocation?.split('  ')[0]
+
 
 
   const cityName = aqiCity.toUpperCase();
@@ -48,6 +52,7 @@ const Aqi: FC<AQIScreenProps> = (props) => {
     return days[day];
   };
 
+
   if (isLoading) {
     return (
       <View style={styles.container}>
@@ -55,6 +60,7 @@ const Aqi: FC<AQIScreenProps> = (props) => {
       </View>
     )
   }
+  
 
   return (
     <View style={styles.container}>
@@ -81,7 +87,7 @@ const Aqi: FC<AQIScreenProps> = (props) => {
 
 
           <Text style={styles.title}>AirOMeter</Text>
-          <Text style={styles.cityName}>{aqiInfo ? currentCity : "N/A"}</Text>
+          <Text style={styles.cityName}>{aqiInfo ? city: "N/A"}</Text>
 
           <View style={styles.aqiTextContainer}>
             {aqiInfo ? aqiCircle(aqiInfo.aqi) : "N/A"}
@@ -145,15 +151,19 @@ const Aqi: FC<AQIScreenProps> = (props) => {
 
           <View style={styles.bottomWidgetContainer}>
             <View style={styles.widgetBox}>
-              <Text>UV Avg</Text>
-              <View style={styles.smallCircle}>
-                <Text style={styles.widgetText}>{aqiInfo ? aqiInfo.forecast.daily.uvi[0].avg : "N/A"}</Text>
+                <Text>UV Avg</Text>
+                  <Text style={styles.widgetText}>{aqiInfo ? aqiInfo.forecast.daily?.uvi[0].avg : "N/A"}</Text>
+              <View>
+                <Text>{aqiInfo ? uvIndexLevel(aqiInfo?.forecast.daily?.uvi[0].avg) : "N/A"}</Text>
               </View>
             </View>
+
             <View style={styles.widgetBox}>
-              <Text>UV Index</Text>
-              <View style={styles.smallCircle}>
-                <Text style={styles.widgetText}>{aqiInfo ? aqiInfo.forecast.daily.uvi[0].max : "N/A"}</Text>
+              <Text style={styles.uvIndexTitle}>UV Index</Text>
+              <Text style={styles.widgetText}>{aqiInfo ? aqiInfo.forecast.daily.uvi[0].max : "N/A"}</Text>
+              <View >
+               
+                <Text >{aqiInfo ? uvIndexLevel(aqiInfo.forecast.daily.uvi[0].max) : "N/A"}</Text>
               </View>
             </View>
           </View>
@@ -275,15 +285,17 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  smallCircle: {
-    width: 75,
-    height: 75,
-    borderRadius: 75 / 2,
-    backgroundColor: "yellow",
-    justifyContent: "center",
-    alignItems: "center",
+  uvIndexTitle: {
+    
   },
   widgetText: {
-    fontSize: 22,
+    fontSize: 25,
+    zIndex:100,
+    marginTop:14,
+    // marginLeft:15,
+    // backgroundColor:'red',
+    marginBottom:-50,
+    color:'rgb(15, 9, 9)'
+    
   }
 })
