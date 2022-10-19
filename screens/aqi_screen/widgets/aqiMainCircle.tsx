@@ -1,6 +1,7 @@
 import { View, StyleSheet } from 'react-native';
 import React from 'react';
 
+
 const aqiCircle = (aqiNum: number) => {
   switch (true) {
     case (aqiNum <= 50):
@@ -21,7 +22,7 @@ const aqiCircle = (aqiNum: number) => {
 }
 
 export default aqiCircle;
-
+ 
 const styles = StyleSheet.create({
   aqiCircle: {
     alignSelf: "center",

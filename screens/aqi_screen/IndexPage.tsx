@@ -31,31 +31,51 @@ const IndexPage: FC<IndexPageScreenProps> = (props) => {
       </View>
 
       <View style={styles.cardWrapper}>
-        <Text style={styles.title}>Air Quality Index</Text>
+        <Text style={styles.title}>Air Quality & uv Index</Text>
+        <View style={[styles.cardIndexInfo, { backgroundColor: Colors.gray}]}  
+        >
+          <Text style={styles.indexText}>Aqi Index</Text>
+          <Text style={styles.indexText}>Quality</Text>
+          <Text style={styles.indexText}> UV Index</Text>
+        
+        </View>
         <View style={[styles.cardIndexInfo, { backgroundColor: Colors.green}]}  
         >
           <Text style={styles.indexText}>0-50</Text>
-          <Text style={styles.indexText}>Good</Text>
+           <View>
+          <Text style={styles.indexQuality}>Good</Text>
+          </View>
+          <Text style={styles.indexText}>0-2</Text>
+         
         </View>
         <View style={[styles.cardIndexInfo, { backgroundColor: Colors.yellow} ]}>
           <Text style={styles.indexText}>51-100</Text>
           <Text style={styles.indexText}>Moderate</Text>
+          <Text style={styles.indexText}>3-5</Text>
+          
         </View>
         <View style={[styles.cardIndexInfo,{ backgroundColor: Colors.orange}]}>
           <Text style={styles.indexText}>101-150</Text>
-          <Text style={styles.indexTxt}>Unhealthy for Sensitive Groups</Text>
+          <Text style={{width:'30%', marginRight:-20, color:'#fff'}}>Unhealthy for Sensitive Groups</Text>
+          <Text style={{marginLeft:10, color:'#fff'}}>6-7</Text>
+          
         </View>
         <View style={[styles.cardIndexInfo, { backgroundColor: Colors.red}]}>
           <Text style={styles.indexText}>151-200</Text>
           <Text style={styles.indexText}>Unhealthy</Text>
+          <Text style={styles.indexText}>8-10</Text>
+          
         </View>
         <View style={[styles.cardIndexInfo, { backgroundColor: Colors.purple}]}>
           <Text style={styles.indexText}>201-300</Text>
           <Text style={styles.indexText}>Very Unhealthy</Text>
+          <Text style={styles.indexText}>11+</Text>
+       
         </View>
         <View style={[styles.cardIndexInfo,{ backgroundColor: Colors.brown}]}>
+        <Text style={styles.indexText}>Hazardous</Text>
           <Text style={styles.indexText}>300+</Text>
-          <Text style={styles.indexText}>Hazardous</Text>
+        
         </View>
       </View>
     </View>
@@ -70,20 +90,32 @@ const styles = StyleSheet.create({
   },
   indexText: {
     fontSize: 14,
-    color: '#fff'
+    color: '#fff',
+    justifyContent:'center',
+    alignItems:'center',
+ marginTop:-10,
+ padding:5
+
    
   },
   indexTxt: {
-    flexWrap: "wrap",
-    textAlign:'center',
     fontSize: 14,
-    marginLeft: 45,
-    color: '#fff'
+    color:'#fff',
+    marginRight:70
+   
+
     
+  },
+  indexQuality: {
+    fontSize: 14,
+    color:'#fff',
+    justifyContent:'center',
+    alignItems:'center',
+    marginBottom:-62,
   },
   title: {
     textAlign: "center",
-    margin: 30,
+    margin: 25,
     fontSize: 25,
   },
   backIcon: {
@@ -103,12 +135,12 @@ const styles = StyleSheet.create({
   cardWrapper: {
     backgroundColor: "rgba(255, 255, 255, .5)",
     position: "absolute",
-    top: 140,
+    top: 100,
     left: 14,
     right: 0,
     bottom: 0,
     borderRadius: 10,
-    height: 550,
+    height: 600,
     width: 370,
   },
   cardIndexInfo:{
@@ -120,6 +152,9 @@ const styles = StyleSheet.create({
     padding: 17,
     borderRadius: 5,
     marginLeft: 19,
-    color: '#fff'
+    color: 'rgb(238, 236, 236)',
+    flexWrap: 'wrap',
+
+   
   }
 });
