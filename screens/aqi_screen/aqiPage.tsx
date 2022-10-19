@@ -14,6 +14,7 @@ import aqiText from './widgets/aqiText';
 import aqiLevel from './widgets/aqiLevel';
 import aqiForecast from './widgets/aqiForecast';
 import aqiCircle from './widgets/aqiMainCircle';
+import { renderNode } from "react-native-elements/dist/helpers";
 
 type AQIScreenProps = NativeStackScreenProps<StackParamList, "Main">;
 
@@ -53,6 +54,24 @@ const Aqi: FC<AQIScreenProps> = (props) => {
       <View style={styles.container}>
         <Text style={styles.aqiInfoText}>Loading...</Text>
       </View>
+    )
+  }
+
+  if (error) {
+    return (
+      <View style={styles.errorContainer}>
+        <View style={styles.errorBox}>
+          <Text style={styles.errorText}>Sorry an error has occurred</Text>
+          <Text style={styles.errorText}>:( </Text>
+          <View style={styles.errorButtonContainer}>
+            <Pressable
+              style={styles.errorButton}
+              onPress={() => props.navigation.navigate("Search")}>
+              <Text style={styles.errorTextButton}>ok</Text>
+            </Pressable>
+          </View>
+        </View>
+      </View >
     )
   }
 
@@ -285,5 +304,37 @@ const styles = StyleSheet.create({
   },
   widgetText: {
     fontSize: 22,
-  }
+  },
+  errorContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  errorBox: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '60%',
+    borderWidth: 1,
+    borderRadius: 10,
+  },
+  errorText: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    color: 'red',
+  },
+  errorButtonContainer: {
+    marginVertical: 10,
+    borderTopWidth: 1,
+    borderColor: 'grey',
+    width: "100%",
+  },
+  errorButton: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 10,
+  },
+  errorTextButton: {
+    fontSize: 18,
+  },
 })
