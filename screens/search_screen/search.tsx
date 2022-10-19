@@ -75,7 +75,7 @@ const Search: FC<SearchScreenProps> = (props) => {
           value={city}
           style={styles.input}
         />
-        <Pressable style={styles.searchIcon}>
+        <Pressable style={styles.searchIcon} onPress={submitHandler}>
           <Ionicons name="ios-search" size={24} color="black" />
         </Pressable>
       </View>

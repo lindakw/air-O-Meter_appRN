@@ -62,6 +62,24 @@ const Aqi: FC<AQIScreenProps> = (props) => {
   }
   
 
+  if (error) {
+    return (
+      <View style={styles.errorContainer}>
+        <View style={styles.errorBox}>
+          <Text style={styles.errorText}>Sorry an error has occurred</Text>
+          <Text style={styles.errorText}>:( </Text>
+          <View style={styles.errorButtonContainer}>
+            <Pressable
+              style={styles.errorButton}
+              onPress={() => props.navigation.navigate("Search")}>
+              <Text style={styles.errorTextButton}>ok</Text>
+            </Pressable>
+          </View>
+        </View>
+      </View >
+    )
+  }
+
   return (
     <View style={styles.container}>
       <ImageBackground source={require("../../assets/air2.jpeg")} resizeMode="cover" style={{ width: "100%", height: "100%" }}>
@@ -292,10 +310,39 @@ const styles = StyleSheet.create({
     fontSize: 25,
     zIndex:100,
     marginTop:14,
-    // marginLeft:15,
-    // backgroundColor:'red',
     marginBottom:-50,
-    color:'rgb(15, 9, 9)'
-    
-  }
+    color:'rgb(15, 9, 9)' 
+  },
+  errorContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  errorBox: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '60%',
+    borderWidth: 1,
+    borderRadius: 10,
+  },
+  errorText: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    color: 'red',
+  },
+  errorButtonContainer: {
+    marginVertical: 10,
+    borderTopWidth: 1,
+    borderColor: 'grey',
+    width: "100%",
+  },
+  errorButton: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 10,
+  },
+  errorTextButton: {
+    fontSize: 18,
+  },
 })
